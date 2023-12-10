@@ -4,13 +4,19 @@ import './ExpenseForm.css'
 
 const ExpenseForm = ()=>{
 
-    const [title,setTitle]= useState("")
-    const [date,setDate]= useState("")
-    const [amount,setAmount]= useState("")
+    const [enteredTitle,setEnteredTitle]= useState("")
+    const [enteredDate,setEnteredDate]= useState("")
+    const [enteredAmount,setEnteredAmount]= useState("")
      
     const submitHandler = (event)=>{
         event.preventDefault();
-        alert(title,date,amount)
+
+        const expenseData ={
+            title : enteredTitle,
+            date : new Date(enteredDate),
+            amount : enteredAmount,
+        }
+        console.log(expenseData)
     }
 
 
@@ -18,18 +24,16 @@ const ExpenseForm = ()=>{
            
            <form onSubmit={submitHandler} className="expense-form">
             <label>ExpenseTitle</label>
-            <input type='text' value={title} onChange={(e)=> setTitle(e.target.value) }/>
+            <input type='text' value={enteredTitle} onChange={(e)=> setEnteredTitle(e.target.value) }/>
 
             <label>ExpenseDate</label>
-            <input type='date'value={date} onChange={(e)=> setDate(e.target.value)} />
+            <input type='date'value={enteredDate} onChange={(e)=> setEnteredDate(e.target.value)} />
 
             <label>ExpenseAmount</label>
-            <input type="number" value={amount} onChange={(e)=> setAmount(e.target.value)} />
+            <input type="number" value={enteredAmount} onChange={(e)=> setEnteredAmount(e.target.value)} />
 
             <button type='submit' > Add Expense </button>
            </form>
-
-
 
     </div>)
 
