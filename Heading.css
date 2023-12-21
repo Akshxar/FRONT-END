@@ -1,0 +1,13 @@
+/* Heading.module.css */
+
+.heading {
+    text-align: center;
+    justify-content: center;
+    padding-top: 30px;
+    text-decoration: underline;
+    font-size: 50px;
+    color:#8ca3a3;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Replace 'YourChosenFont' with the actual font you want to use */
+    text-shadow: 1px 1px 1px #ffffff; /* Add font border with HEX: #8ca3a3 */
+    /* Add any additional styling you want for the font */
+  } 
