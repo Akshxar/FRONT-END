@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -6,42 +6,38 @@ import Button from '../UI/Button/Button';
 
 const Login = (props) => {
   const [enteredEmail, setEnteredEmail] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState();
+  const [emailIsValid, setEmailIsValid] = useState(true);
   const [enteredPassword, setEnteredPassword] = useState('');
-  const [passwordIsValid, setPasswordIsValid] = useState();
-  const [enteredCollegeName ,setCollegeName] =useState('')
-  const [CollegeNameIsValid ,setCollegeNameIsValid]= useState('')
+  const [passwordIsValid, setPasswordIsValid] = useState(true);
+  const [enteredCollegeName, setCollegeName] = useState('');
+  const [collegeNameIsValid, setCollegeNameIsValid] = useState(true);
   const [formIsValid, setFormIsValid] = useState(false);
 
-  useEffect( ()=>{ 
+  useEffect(() => {
     
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
-    setFormIsValid(
-      enteredPassword.trim().length > 6 && enteredEmail.includes('@')
-    );
-    setFormIsValid(
-      enteredCollegeName.trim().length >1 
-    )
+    const delayDebouncing = setTimeout(() => {
+      
+      setFormIsValid(
+        enteredEmail.includes('@') &&
+        enteredPassword.trim().length > 6 &&
+        enteredCollegeName.trim().length > 1
+      );
+    }, 500);
 
-  } ,[enteredEmail,enteredPassword,enteredCollegeName]);
+    return () => clearTimeout(delayDebouncing);
+  }, [enteredEmail, enteredPassword, enteredCollegeName]);
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
-
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
-
   };
-  
-  const CollegeNameChangeHandler = (event)=>{
-    setCollegeName(event.target.value)
-  }
 
-
+  const collegeNameChangeHandler = (event) => {
+    setCollegeName(event.target.value);
+  };
 
   const validateEmailHandler = () => {
     setEmailIsValid(enteredEmail.includes('@'));
@@ -50,13 +46,10 @@ const Login = (props) => {
   const validatePasswordHandler = () => {
     setPasswordIsValid(enteredPassword.trim().length > 6);
   };
-  
-  const validateCollegeNameHandler =()=>{
+
+  const validateCollegeNameHandler = () => {
     setCollegeNameIsValid(enteredCollegeName.trim().length > 1);
-  }
-
-
-
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -97,7 +90,7 @@ const Login = (props) => {
 
         <div
           className={`${classes.control} ${
-            CollegeNameIsValid === false ? classes.invalid : ''
+            collegeNameIsValid === false ? classes.invalid : ''
           }`}
         >
           <label htmlFor="collegeName">College Name</label>
@@ -105,21 +98,10 @@ const Login = (props) => {
             type="text"
             id="collegeid"
             value={enteredCollegeName}
-            onChange={CollegeNameChangeHandler}
+            onChange={collegeNameChangeHandler}
             onBlur={validateCollegeNameHandler}
           />
         </div>
-
-
-
-
-
-
-
-
-
-
-
 
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>
